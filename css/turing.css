@@ -1,0 +1,14 @@
+.greeter{
+  height: 150px;
+}
+
+.right-col{
+  height:150px;
+  vertical-align: middle;
+  border-right: 1px solid black;
+}
+
+.left-col{
+  height:150px;
+  vertical-align: middle;
+}
