@@ -17,11 +17,18 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-4">
-            <div class="input-group">
-              <input type="text" id="perg-text" class="form-control" placeholder="Coloque aqui a sua pergunta...">
-              <span class="input-group-addon">?</span>
-            </div>
+            <select class="form-control perg-list">
+              <option value="-1">Selecione uma pergunta</option>
+            </select>
             <br>
+            <div class="from-group">
+              <label for="salaA">Sala A</label>
+              <input type="radio" name="sala" value="0" placeholder="Sala A">
+              <label for="salaB">Sala B</label>
+              <input type="radio" name="sala" value="1" placeholder="Sala B">
+              <label for="salaAB">Duas Salas</label>
+              <input type="radio" name="sala" value="2" placeholder="Sala A e B">
+            </div>
             <button type="button" id="perg-button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-ok"></span> Perguntar</button>
           </div>
           <div class="col-md-4"></div>
@@ -33,22 +40,15 @@
             <h1 class="text-center">Respostas</h1>
             <br><br>
             <!--Template para a tabela de respostas do Imitation Game-->
-            <table class="table table-condensed table-hover">
-              <caption>Quem gosta bué de homens peludos?</caption>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>R1</th>
-                  <th>R2</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>O Rui Sá gosta de homens peludos. Para além de homens peludos uma preferência dele são homens parrudos e bigodudos</td>
-                  <td>O Rui Sá gosta muito de homens peludos</td>
-                </tr>
-              </tbody>
+            <!--Template para a tabela de respostas do Imitation Game-->
+            <table id="copy-table" class="table table-condensed table-hover">
+              <tr>
+                <th class="text-center perg-header"></th>
+              </tr>
+              <tr>
+                <td class="my-resp"></td>
+                <td class="bot-resp"></td>
+              </tr>
             </table>
           </div>
           <div class="col-md-2"></div>

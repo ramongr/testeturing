@@ -7,19 +7,20 @@
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/turing.css">
     <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
     <script src="./js/resp.js"></script>
   </head>
   <body>
     <h1 class="text-center">Resposta</h1>
     <br><br>
-    <h3 class="text-center">À espera de perguntas para responder/Fim do jogo!</h3>
+    <h3 class="text-center perg"></h3>
     <br><br>
     <div class="row">
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-4">
-            <textarea id="resp-text" class="form-control" rows="3" placeholder="Coloque aqui a sua resposta"></textarea>
+            <textarea id="resp-text" class="form-control" rows="3" maxlength="1024" placeholder="Coloque aqui a sua resposta"></textarea>
             <br>
             <button type="button" id="resp-button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-ok"></span> Responder</button>
           </div>
@@ -32,20 +33,13 @@
             <h1 class="text-center">Respostas</h1>
             <br><br>
             <!--Template para a tabela de respostas do Imitation Game-->
-            <table class="table table-condensed table-hover">
-              <caption>Quem gosta bué de homens peludos?</caption>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>R1</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>O Rui Sá gosta de homens peludos. Para além de homens peludos uma preferência dele são homens parrudos e bigodudos</td>
-                </tr>
-              </tbody>
+            <table id="copy-table" class="table table-condensed table-hover">
+              <tr>
+                <th class="text-center perg-header"></th>
+              </tr>
+              <tr>
+                <td class="my-resp"></td>
+              </tr>
             </table>
           </div>
           <div class="col-md-2"></div>
