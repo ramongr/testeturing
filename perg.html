@@ -17,11 +17,18 @@
         <div class="row">
           <div class="col-md-4"></div>
           <div class="col-md-4">
-            <div class="input-group">
-              <input type="text" id="perg-text" class="form-control" maxlength="256" placeholder="Coloque aqui a sua pergunta...">
-              <span class="input-group-addon">?</span>
-            </div>
+            <select class="form-control perg-list">
+              <option value="-1">Selecione uma pergunta</option>
+            </select>
             <br>
+            <div class="from-group">
+              <label for="salaA">Sala A</label>
+              <input type="radio" name="sala" value="0" placeholder="Sala A">
+              <label for="salaB">Sala B</label>
+              <input type="radio" name="sala" value="1" placeholder="Sala B">
+              <label for="salaAB">Duas Salas</label>
+              <input type="radio" name="sala" value="2" placeholder="Sala A e B">
+            </div>
             <button type="button" id="perg-button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-ok"></span> Perguntar</button>
           </div>
           <div class="col-md-4"></div>
@@ -38,8 +45,8 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>R1</th>
-                  <th>R2</th>
+                  <th>Sala A</th>
+                  <th>Sala B</th>
                 </tr>
               </thead>
               <tbody>
