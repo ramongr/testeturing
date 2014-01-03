@@ -9,5 +9,8 @@
   $db->bind(':resp',$_POST['resp']);
   $db->execute();
 
-  setcookie('resposta',$db->lastInsertId(),time()+3600*24,"/");
+  $db->query('update perguntas set id_resp= :resp where id_perg= :perg');
+  $db->bind(':resp',$db->lastInsertId());
+  $db->bind(':perg',$_COOKIE['pergunta']);
+  $db->execute();
 ?>

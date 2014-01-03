@@ -1,12 +1,14 @@
 $(document).ready(function(){
   var perg = $.cookie('pergunta')
+  var n=0
   $('#copy-table').hide();
   $('#resp-button').prop('disabled',true)
   $('#resp-text').prop('disabled', true)
 
   //Verifica a cada 5 segundos por uma pergunta nova
   window.setInterval(function(){ 
-    if(perg < $.cookie('pergunta')){
+    if(perg < $.cookie('pergunta') || n==0){
+      n++;
       $.ajax({
         url: './php/src_resp.php',
         type: 'POST',
@@ -26,10 +28,9 @@ $(document).ready(function(){
             $('#resp-button').prop('disabled',false)
             $('#resp-text').prop('disabled',false)
         }
+      })
     }
-  }, 5000);
-
-  })
+  }, 5000)
 
   $('#rest-text').keyup(function(event) {
     if(event.which == 13){
@@ -54,5 +55,15 @@ $(document).ready(function(){
     $('.my-resp').text($('#resp-text').val())
     $('#copy-table').show();
     $('.perg').text('À espera de outra pergunta')
+
+    $.ajax({
+      url: './php/resp.php',
+      type: 'POST',
+      data: {resp: $('#resp-text').val()}
+    })
+    .done(function(result) {
+      console.log(result);
+    })
+    
   })
 })
