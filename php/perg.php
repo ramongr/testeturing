@@ -1,4 +1,5 @@
 <?php
+  //Este ficheiro regista as questões inseridas
   include 'config.php';
 
   $db = new Database;

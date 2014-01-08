@@ -1,14 +1,22 @@
 $(document).ready(function(){
   var perg = $.cookie('pergunta')
-  var n=0
-  $('#copy-table').hide();
+  $('#copy-table').hide()
   $('#resp-button').prop('disabled',true)
   $('#resp-text').prop('disabled', true)
 
   //Verifica a cada 5 segundos por uma pergunta nova
-  window.setInterval(function(){ 
-    if(perg < $.cookie('pergunta') || n==0){
-      n++;
+  window.setInterval(function(){
+
+    if($.cookie('pergunta')==0){
+      $('.perg').text('Por favor aguarde')
+      $('#resp-button').prop('disabled',true)
+      $('#resp-text').prop('disabled',true)
+    }
+
+    if($.cookie('pergunta')>0 && $.cookie('pergunta')!=perg){
+
+      perg = $.cookie('pergunta')
+
       $.ajax({
         url: './php/src_resp.php',
         type: 'POST',
@@ -18,7 +26,7 @@ $(document).ready(function(){
         console.log(result)
         switch(result){
           case 0:
-            $('.perg').text('À espera de outra pergunta')
+            $('.perg').text('Por favor aguarde')
             break
           case -1:
             $('.perg').text('Fim do jogo!')
@@ -30,6 +38,7 @@ $(document).ready(function(){
         }
       })
     }
+
   }, 5000)
 
   $('#rest-text').keyup(function(event) {
@@ -62,7 +71,7 @@ $(document).ready(function(){
       data: {resp: $('#resp-text').val()}
     })
     .done(function(result) {
-      console.log(result);
+      console.log(result)
     })
     
   })

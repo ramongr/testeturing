@@ -17,6 +17,7 @@
   $db->execute();
 
   setcookie('turing',$db->lastInsertId(),time()+3600*24,"/");
+  setcookie('pergunta',0,time()+3600*24,"/");
 
   echo $db->lastInsertId();
 ?>
