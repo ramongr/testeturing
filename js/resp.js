@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var perg = $.cookie('pergunta')
+  
   $('#copy-table').hide()
   $('#resp-button').prop('disabled',true)
   $('#resp-text').prop('disabled', true)
@@ -7,25 +7,14 @@ $(document).ready(function(){
   //Verifica a cada 5 segundos por uma pergunta nova
   window.setInterval(function(){
 
-    if($.cookie('pergunta')==0){
-      $('.perg').text('Por favor aguarde')
-      $('#resp-button').prop('disabled',true)
-      $('#resp-text').prop('disabled',true)
-    }
+    $.ajax({
+      url: './php/get_perg.php',
+      type: 'POST'
+    })
+    .done(function(result) {
 
-    if($.cookie('pergunta')>0 && $.cookie('pergunta')!=perg){
-
-      perg = $.cookie('pergunta')
-
-      $.ajax({
-        url: './php/src_resp.php',
-        type: 'POST',
-        data: {perg: perg}
-      })
-      .done(function(result) {
-        console.log(result)
-        switch(result){
-          case 0:
+      switch(result){
+          case '0':
             $('.perg').text('Por favor aguarde')
             break
           case -1:
@@ -35,17 +24,16 @@ $(document).ready(function(){
             $('.perg').text(result)
             $('#resp-button').prop('disabled',false)
             $('#resp-text').prop('disabled',false)
-        }
-      })
-    }
-
+      }
+      
+    })
   }, 5000)
 
-  $('#rest-text').keyup(function(event) {
+  /*$('#rest-text').keyup(function(event) {
     if(event.which == 13){
       $('#resp-button').trigger('click')
     }
-  })
+  })*/
 
   $('#resp-button').click(function(){
     /*Lista de coisas a fazer: TO DO
@@ -71,7 +59,8 @@ $(document).ready(function(){
       data: {resp: $('#resp-text').val()}
     })
     .done(function(result) {
-      console.log(result)
+      
+      
     })
     
   })

@@ -4,8 +4,14 @@
 
   $db = new Database;
 
+  $db->query("select max(id_jogo) from jogo");
+  
+  $arr = $db->single();
+
+  $id_jogo = $arr['max(id_jogo)'];
+
   $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
-  $db->bind(':jogo',$_COOKIE['turing']);
+  $db->bind(':jogo',$id_jogo);
   $db->bind(':perg',$_POST['perg']);
 
   switch($_POST['sala']){
@@ -26,7 +32,4 @@
 
   $db->execute();
 
-  if($_POST['sala'] == 0 || $_POST['sala']==2){
-    setcookie('pergunta',$db->lastInsertId(),time()+3600*24,'/');
-  }
 ?>

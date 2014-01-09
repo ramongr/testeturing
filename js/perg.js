@@ -1,13 +1,5 @@
 $(document).ready(function(){
 
-  var n_quest = 0
-  
-  $('#perg-text').keyup(function(event) {
-    if(event.which == 13){
-      $('#perg-button').trigger('click')
-    }
-  })
-
   $('#perg-button').click(function(){
     /*Lista de coisas a fazer: TO DO
       1 - Fazer disable ao botão perguntar para não deixar fazer perguntas
@@ -35,6 +27,8 @@ $(document).ready(function(){
     
   })
 
+  //Pesquisa na table "fixed questions", e devolve todas as perguntas existentes
+
   $.ajax({
     url: './php/perg_list.php',
     type: 'POST',
@@ -42,5 +36,21 @@ $(document).ready(function(){
   .done(function(data) {
     $('.perg-list').append(data)
   })
+
+
+  //Verifica a cada 5 segundos por uma resposta nova
+
+  window.setInterval(function(){
+
+    $.ajax({
+      url: './php/get_resp.php',
+      type: 'POST',
+      data: {sala: $('input[name="sala"]:checked').val()}
+    })
+    .done(function(result) {
+
+      console.log("Resposta: " + result);
+    })
+  }, 5000)
   
 })
