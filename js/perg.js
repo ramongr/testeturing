@@ -10,8 +10,10 @@ $(document).ready(function(){
       6 - Ao fim da terceira questão criar botão decidir/terminar e botão continuar
     */
 
-    //Verifica se as opções estão todas selecionadas
-    if($('.perg-list').val()>-1 && $("input[type='radio']:checked").val() != undefined){
+    //Verifica se existe uma pergunta seleccionada e se a pergunta foi feita para a Sala A
+
+    if($('.perg-list').val()>-1 && $("input[name='sala']:checked").val() == 0)
+    {
       $('#perg-button').prop('disabled', true)
       $('.perg-list').prop('disabled', true)
 
@@ -19,13 +21,48 @@ $(document).ready(function(){
       $.ajax({
         url: './php/perg.php',
         type: 'POST',
-        data: {perg: $('.perg-list option:selected').text(), sala: $("input[type='radio']:checked").val()}
+        data: {perg: $('.perg-list option:selected').text(), sala: $('input[name="sala"]:checked').val()}
       })
       .done(function(data){
-        console.log(data)
-      })   
+        
+        //Verifica a cada 5 segundos por uma resposta nova
+
+        var interval = window.setInterval(function(){
+
+          $.ajax({
+            url: './php/get_resp.php',
+            type: 'POST',
+            dataType:"json",
+            data: {sala: $('input[name="sala"]:checked').val()}
+          })
+          .done(function(result) {
+
+            if(result.my_resp)
+            {
+              $('table#copy-table').append("<tr><th class='text-center perg-header'>"+$('.perg-list option:selected').text()+"</th></tr>");
+              $('table#copy-table').append("<tr><td>"+result.my_resp+"</td></tr>");
+              //$('.perg-header').text($('.perg-list option:selected').text());
+              //$('.my-resp').text(result.my_resp);
+              $('#perg-button').prop('disabled', false);
+              $('.perg-list').prop('disabled', false);
+
+              clearInterval(interval);
+            }
+          })
+        })   
+      })
     }
-    
+
+    //Verifica se existe uma pergunta seleccionada e se a pergunta foi feita para a Sala B
+
+    if($('.perg-list').val()>-1 && $("input[name='sala']:checked").val() == 1)
+    {
+      $('#perg-button').prop('disabled', true)
+      $('.perg-list').prop('disabled', true)
+
+      //Envia os dados assícronamente para a base de dados
+      
+    }
   })
 
   //Pesquisa na table "fixed questions", e devolve todas as perguntas existentes
@@ -41,11 +78,12 @@ $(document).ready(function(){
 
   //Verifica a cada 5 segundos por uma resposta nova
 
-  var interval = window.setInterval(function(){
+  /*var interval = window.setInterval(function(){
 
     $.ajax({
       url: './php/get_resp.php',
       type: 'POST',
+      dataType:"json",
       data: {sala: $('input[name="sala"]:checked').val()}
     })
     .done(function(result) {
@@ -54,22 +92,28 @@ $(document).ready(function(){
       {
         if($('input[name="sala"]:checked').val() == 0)
         {
-          $('.my-resp').text(result);
+          document.getElementById('my-resp-perg').innerHTML = $('.perg-list option:selected').text().bold();
+          $('.my-resp').text(result.my_resp);
           $('#perg-button').prop('disabled', false);
           $('.perg-list').prop('disabled', false);
         }
 
         if($('input[name="sala"]:checked').val() == 1)
         {
-          $('.bot-resp').text(result);
+          document.getElementById('bot-resp-perg').innerHTML = $('.perg-list option:selected').text().bold();
+          $('.bot-resp').text(result.resp_bot);
           $('#perg-button').prop('disabled', false);
           $('.perg-list').prop('disabled', false);
         }
 
         if($('input[name="sala"]:checked').val() == 2)
         {
-          //$('.my-resp').text(result);
-          //$('.bot-resp').text(result);
+          console.log("My: " + result.my_resp);
+          console.log("Bot: " + result.resp_bot);
+          document.getElementById('my-resp-perg').innerHTML = $('.perg-list option:selected').text().bold();
+          document.getElementById('bot-resp-perg').innerHTML = $('.perg-list option:selected').text().bold();
+          $('.my-resp').text(result.my_resp);
+          $('.bot-resp').text(result.resp_bot);
           $('#perg-button').prop('disabled', false);
           $('.perg-list').prop('disabled', false);
         }
@@ -77,7 +121,7 @@ $(document).ready(function(){
         clearInterval(interval);
       }
     })
-  }, 5000)
+  }, 5000)*/
   
   
 })

@@ -5,7 +5,7 @@ $(document).ready(function(){
   $('#resp-text').prop('disabled', true)
 
   //Verifica a cada 5 segundos por uma pergunta nova
-  var interval = window.setInterval(function(){
+  window.setInterval(function(){
 
     $.ajax({
       url: './php/get_perg.php',
@@ -28,8 +28,6 @@ $(document).ready(function(){
               $('#resp-button').prop('disabled',false)
               $('#resp-text').prop('disabled',false)
           }
-
-          clearInterval(interval)
       }
       
     })
