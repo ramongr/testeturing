@@ -12,7 +12,8 @@ $(document).ready(function(){
 
     //Verifica se as opções estão todas selecionadas
     if($('.perg-list').val()>-1 && $("input[type='radio']:checked").val() != undefined){
-      $('#perg-button').prop('disabled', 'true')
+      $('#perg-button').prop('disabled', true)
+      $('.perg-list').prop('disabled', true)
 
       //Envia os dados assícronamente para a base de dados
       $.ajax({
@@ -40,7 +41,7 @@ $(document).ready(function(){
 
   //Verifica a cada 5 segundos por uma resposta nova
 
-  window.setInterval(function(){
+  var interval = window.setInterval(function(){
 
     $.ajax({
       url: './php/get_resp.php',
@@ -49,8 +50,34 @@ $(document).ready(function(){
     })
     .done(function(result) {
 
-      console.log("Resposta: " + result);
+      if(result)
+      {
+        if($('input[name="sala"]:checked').val() == 0)
+        {
+          $('.my-resp').text(result);
+          $('#perg-button').prop('disabled', false);
+          $('.perg-list').prop('disabled', false);
+        }
+
+        if($('input[name="sala"]:checked').val() == 1)
+        {
+          $('.bot-resp').text(result);
+          $('#perg-button').prop('disabled', false);
+          $('.perg-list').prop('disabled', false);
+        }
+
+        if($('input[name="sala"]:checked').val() == 2)
+        {
+          //$('.my-resp').text(result);
+          //$('.bot-resp').text(result);
+          $('#perg-button').prop('disabled', false);
+          $('.perg-list').prop('disabled', false);
+        }
+
+        clearInterval(interval);
+      }
     })
   }, 5000)
+  
   
 })
