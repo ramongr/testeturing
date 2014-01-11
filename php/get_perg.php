@@ -23,7 +23,7 @@
 
   //Devolve a pergunta atual à espera de resposta
 
-  $db->query("select perg from perguntas where id_jogo=:id_j and id_perg=:id_p");
+  $db->query("select perg from perguntas where id_jogo=:id_j and id_perg=:id_p and id_resp is NULL and sala_a = 1");
   $db->bind(':id_j',$id_jogo);
   $db->bind(':id_p',$id_perg);
 

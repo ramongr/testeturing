@@ -8,7 +8,7 @@ $(document).ready(function() {
       type: 'POST'
     })
     .done(function(result) {
-      console.log(result)
+     
     })
     
     $('.fst-step').hide(600)

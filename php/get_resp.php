@@ -30,13 +30,15 @@
 
   if($sala == 0)
   {
-    $db->query("select resp from respostas r, perguntas p where p.id_perg=:id_p and p.id_jogo=r.id_jogo and r.id_jogo=:id_j");
+    $db->query("select resp from respostas r, perguntas p where p.id_perg=:id_p and p.id_jogo=r.id_jogo and p.id_resp=r.id_resp and r.id_jogo=:id_j");
     $db->bind(':id_j',$id_jogo);
     $db->bind(':id_p',$id_perg);
 
     $arr = $db->single();
 
+    //$aux = "idj: " . $id_jogo . ", idp: " . $id_perg;
     $arr2 = array("my_resp" => $arr['resp']);
+    //$arr2 = array("my_resp" => $aux);
 
     echo json_encode($arr2);
   }
@@ -78,7 +80,7 @@
       {
         //Vamos obter a resposta do humano. Se existir, então vamos buscar a resposta do bot. Desta forma, as 2 repsostas serão apresentadas ao mesmo tempo.
 
-        $db->query("select resp from respostas r, perguntas p where p.id_perg=:id_p and p.id_jogo=r.id_jogo and r.id_jogo=:id_j");
+        $db->query("select resp from respostas r, perguntas p where p.id_perg=:id_p and p.id_jogo=r.id_jogo and p.id_resp=r.id_resp and r.id_jogo=:id_j");
         $db->bind(':id_j',$id_jogo);
         $db->bind(':id_p',$id_perg);
 
