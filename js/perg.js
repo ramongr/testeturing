@@ -20,6 +20,7 @@ $(document).ready(function(){
 
   var flag = 0;
 
+
   //Logo no inicio, usando um random, determinamos em que sala fica o humano e o bot. Se sair 0, humano -> sala A e bot -> sala B. Se sair 1, humano -> sala B e bot -> sala A
 
   if(flag == 0)
@@ -197,9 +198,26 @@ $(document).ready(function(){
     }
   })
 
+
+  //Quando um jogo termina, vamos guardar na base de dados o nº de perguntas feitas e se o utilizador ganhou ou perdeu
+  function termina_jogo(ganhou) 
+  {
+    $.ajax({
+      url: './php/term_jogo.php',
+      type: 'POST',
+      data: {ganhou: ganhou},
+    })
+    .done(function(result) {
+
+    })
+  }
+
+
   //Se já tiverem sido efectuadas 3 questões, o jogo acaba e o utilizador tem de escolher qual o computador e qual o humano
 
   var interval = window.setInterval(function(){
+
+    var ganhou;
 
     //Se já tiverem sido efectuadas 3 questões às duas salas simultaneamente, o jogo acaba e o utilizador tem de escolher qual o computador e qual o humano
     if(n_perg == 3 || (a_perg == 3 && b_perg == 3))
@@ -218,13 +236,19 @@ $(document).ready(function(){
         {
           $('#resultado').addClass("text-success");
           $('#resultado').text("Ganhou!");
+
+          ganhou = 1;
         }
         else
         {
           $('#resultado').addClass("text-danger");
           $('#resultado').text("Perdeu!");
+
+          ganhou = 0;
         }
         
+        termina_jogo(ganhou);
+
         $('#resultado').show();
 
         $('#salaA').prop('disabled', true);
@@ -238,12 +262,18 @@ $(document).ready(function(){
         {
           $('#resultado').addClass("text-danger");
           $('#resultado').text("Perdeu!");
+
+          ganhou = 0;
         }
         else
         {
           $('#resultado').addClass("text-success");
           $('#resultado').text("Ganhou!");
+
+          ganhou = 1;
         }
+        
+        termina_jogo(ganhou);
         
         $('#resultado').show();
 
