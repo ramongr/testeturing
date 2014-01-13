@@ -125,7 +125,7 @@ $(document).ready(function(){
             data: {sala: $('input[name="sala"]:checked').val()},
           })
           .done(function(result) {
-
+            
             if(result.resp_bot)
             {
               $('table#resp-bot-table').append("<tr><th class='perg-header'>"+$('.perg-list option:selected').text()+"</th></tr>");
