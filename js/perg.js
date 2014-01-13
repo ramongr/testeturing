@@ -7,9 +7,6 @@ $(document).ready(function(){
 
   $('#resultado').hide();
 
-  //Controla o nº de perguntas feitas às duas salas simultaneamente
-  var n_perg = 0;
-
   //CControla o nº de perguntas feitas à sala A
   var a_perg = 0;
 
@@ -54,11 +51,11 @@ $(document).ready(function(){
   $('#perg-button').click(function(){
 
     //Verifica se existe uma pergunta seleccionada e se a pergunta foi feita para a Sala A
-    console.log($("input[name='sala']:checked").val());
+
     if($('.perg-list').val()>-1 && $("input[name='sala']:checked").val() == 0)
     {
-      $('#perg-button').prop('disabled', true)
-      $('.perg-list').prop('disabled', true)
+      $('#perg-button').prop('disabled', true);
+      $('.perg-list').prop('disabled', true);
 
       //Envia os dados assícronamente para a base de dados
       $.ajax({
@@ -188,7 +185,8 @@ $(document).ready(function(){
               $('#perg-button').prop('disabled', false);
               $('.perg-list').prop('disabled', false);
 
-              n_perg ++;
+              a_perg ++;
+              b_perg ++;
 
               clearInterval(interval);
             }
@@ -200,12 +198,12 @@ $(document).ready(function(){
 
 
   //Quando um jogo termina, vamos guardar na base de dados o nº de perguntas feitas e se o utilizador ganhou ou perdeu
-  function termina_jogo(ganhou) 
+  function termina_jogo(ganhou, a_perg, b_perg) 
   {
     $.ajax({
       url: './php/term_jogo.php',
       type: 'POST',
-      data: {ganhou: ganhou},
+      data: {ganhou: ganhou, a_perg: a_perg, b_perg: b_perg},
     })
     .done(function(result) {
 
@@ -220,7 +218,7 @@ $(document).ready(function(){
     var ganhou;
 
     //Se já tiverem sido efectuadas 3 questões às duas salas simultaneamente, o jogo acaba e o utilizador tem de escolher qual o computador e qual o humano
-    if(n_perg == 1 || (a_perg == 3 && b_perg == 3))
+    if(a_perg == 3 && b_perg == 3)
     {
       $('#perg-button').prop('disabled', true);
       $('.perg-list').prop('disabled', true);
@@ -247,7 +245,7 @@ $(document).ready(function(){
           ganhou = 0;
         }
         
-        termina_jogo(ganhou);
+        termina_jogo(ganhou, a_perg, b_perg);
 
         $('#resultado').show();
 
@@ -273,7 +271,7 @@ $(document).ready(function(){
           ganhou = 1;
         }
         
-        termina_jogo(ganhou);
+        termina_jogo(ganhou, a_perg, b_perg);
         
         $('#resultado').show();
 
