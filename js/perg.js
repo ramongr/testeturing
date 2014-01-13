@@ -220,7 +220,7 @@ $(document).ready(function(){
     var ganhou;
 
     //Se já tiverem sido efectuadas 3 questões às duas salas simultaneamente, o jogo acaba e o utilizador tem de escolher qual o computador e qual o humano
-    if(n_perg == 3 || (a_perg == 3 && b_perg == 3))
+    if(n_perg == 1 || (a_perg == 3 && b_perg == 3))
     {
       $('#perg-button').prop('disabled', true);
       $('.perg-list').prop('disabled', true);

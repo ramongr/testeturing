@@ -21,7 +21,7 @@ $(document).ready(function(){
             case '0':
               $('.perg').text('Por favor aguarde');
               break
-            case -1:
+            case '1':
               $('.perg').text('Fim do jogo!');
               break
             default :
@@ -37,7 +37,6 @@ $(document).ready(function(){
 
   $('#resp-button').click(function(){
 
-    
     $('#resp-button').prop('disabled',true);
     $('#resp-text').prop('disabled', true);
 

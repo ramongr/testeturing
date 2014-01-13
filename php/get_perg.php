@@ -54,7 +54,7 @@
     //Se o jogo acabou avisa-se o humano
     else
     {
-      echo -1;
+      echo '1';
     }
   }
 ?>
