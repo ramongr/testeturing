@@ -8,8 +8,12 @@
   $db = new Database;
 
   //Guarda o id da sala para sabermos a quem foi feita a pergunta e devolver a sua resposta 
-  
+
   $sala = $_POST['sala'];
+
+  //Se a pergunta for para efectuar cálculos, temos de enviar essa pergunta para o ficheiro das respostas do bot
+
+  $perg = $_POST['perg'];
 
   //Devolve o id do jogo atual
 
@@ -56,7 +60,7 @@
 
       //Chamar a função para obter a resposta do bot
 
-      $resp = getResponse($arr['id_fix_perg']);
+      $resp = getResponse($arr['id_fix_perg'], $perg);
 
       //Faz as devidas alterações á base de dados
 

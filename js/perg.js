@@ -134,7 +134,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val()},
+            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val()},
           })
           .done(function(result) {
             
@@ -353,8 +353,26 @@ $(document).ready(function(){
   });
 
 
-  //Pesquisa na table "fixed questions", e devolve todas as perguntas existentes
+  //Controla a visibilidade da caixa de input para operações com números
+  $('#dd-input').hide();
 
+  $("#perguntas-list").change(function() {
+
+      var val = $(this).val();
+      
+      if (val == '8') 
+      {
+          $('#dd-input').show();
+      } 
+      else 
+      {
+          $('#dd-input').hide();
+      }
+
+  }).change();
+
+
+  //Pesquisa na table "fixed questions", e devolve todas as perguntas existentes
   $.ajax({
     url: './php/perg_list.php',
     type: 'POST',
