@@ -33,8 +33,8 @@ $(document).ready(function(){
 
   if(flag == 0)
   {
-    var num = Math.floor(Math.random() * 2);
-
+    //var num = Math.floor(Math.random() * 2);
+    var num = 0;
     if(num == 1)
     {
       //Troca os id's das tabelas de respostas

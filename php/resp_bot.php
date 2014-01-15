@@ -68,18 +68,27 @@
 
   function getRes($perg)
   {
+    for($i = 0; $i < strlen($perg); $i++)
+    {
+      if($perg[$i] == '(' || $perg[$i] == ')')
+      {
+        $perg[$i] = ' ';
+      }
+    }
+
     $no_spaces = preg_replace('/\s+/', '', $perg);
 
-    $num = null;
+    /*$num = null;
     $op = null;
     $aux = null;
-    $res = null;
+
     $j = 0;
     $h = 0;
 
+    //Separar o input em 2 array's. Um com os números e outro com os operadores
+
     for($i = 0; $i < strlen($no_spaces); $i++)
     {
-      $res = "cheguei";
       if($no_spaces[$i] == '+' || $no_spaces[$i] == '-' || $no_spaces[$i] == '*' || $no_spaces[$i] == '/')
       {
         $op[$j] = $no_spaces[$i];
@@ -88,7 +97,7 @@
       }
       else
       {
-        while($no_spaces[$i] != '+' && $no_spaces[$i] != '-' && $no_spaces[$i] != '*' && $no_spaces[$i] != '/')
+        while($i < strlen($no_spaces) && is_numeric($no_spaces[$i]))
         {
           $aux = $aux . $no_spaces[$i];
 
@@ -99,11 +108,39 @@
 
         $num[$h] = $aux;
 
+        $aux = null;
+
         $h++;
       }
     }
 
-    return $res;
+    //Fazer as contas
+
+    $i = 0;
+    $j = 0;
+
+    $res = $num[$j];
+    $j++;
+
+    while($i < count($op))
+    {
+      switch($op[$i])
+      {
+        case '+': $res = $res + $num[$j]; break;
+
+        case '-': $res = $res - $num[$j]; break;
+
+        case '*': $res = $res * $num[$j]; break;  
+
+        case '/': $res = $res / $num[$j]; break;
+      }
+
+      $i++;
+      $j++;
+    }*/
+
+    return $no_spaces;
+    //return $num['0'] . ", " . $num['1'] . ", ". $op['0'];
   }
 
   function getResponse($id_perg, $perg)
@@ -115,7 +152,7 @@
     $resp_5 = array('1' => "Estou a estudar", '2' => "Estudo", '3' => "Estou a trabalhar", '4' => "Trabalho", '5' => "Estou desempregado", '6' => "Não trabalho nem estudo");
     $resp_6 = array('1' => "", '2' => "Estou no 1º ano de ", '3' => "Estou no 2º ano de ", '4' => "Sou finalista em ");
     $resp_7 = array('1' => "Homem", '2' => "Mulher", '3' => "Sou homem", '4' => "Sou mulher");
-    $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ");
+    $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ", '4' => "");
 
     $resp_bot = null;
     $estudo = -1;
