@@ -28,6 +28,8 @@ $(document).ready(function(){
   //Contador das respostas da saba B
   var r_b = 1;
 
+  //Controla uma reposta do bot, para dar alguma inteligência ao programa
+  var estudo = -1;
 
   //Logo no inicio, usando um random, determinamos em que sala fica o humano e o bot. Se sair 0, humano -> sala A e bot -> sala B. Se sair 1, humano -> sala B e bot -> sala A
 
@@ -74,7 +76,7 @@ $(document).ready(function(){
       $.ajax({
         url: './php/perg.php',
         type: 'POST',
-        data: {perg: $('.perg-list option:selected').text(), sala: $('input[name="sala"]:checked').val()},
+        data: {perg: $('.perg-list option:selected').text(), mat: $('#mat-input').val(), sala: $('input[name="sala"]:checked').val()},
       })
       .done(function(data){
         
@@ -86,7 +88,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val()},
+            data: {sala: $('input[name="sala"]:checked').val(), estudo: estudo},
           })
           .done(function(result) {
 
@@ -122,7 +124,7 @@ $(document).ready(function(){
       $.ajax({
         url: './php/perg.php',
         type: 'POST',
-        data: {perg: $('.perg-list option:selected').text(), sala: $('input[name="sala"]:checked').val()},
+        data: {perg: $('.perg-list option:selected').text(), mat: $('#mat-input').val(), sala: $('input[name="sala"]:checked').val()},
       })
       .done(function(data){
         
@@ -134,7 +136,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val()},
+            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val(), estudo: estudo},
           })
           .done(function(result) {
             
@@ -151,6 +153,8 @@ $(document).ready(function(){
               b_perg ++;
 
               r_b++;
+
+              estudo = result.estudo;
 
               clearInterval(interval);
             }
@@ -170,7 +174,7 @@ $(document).ready(function(){
       $.ajax({
         url: './php/perg.php',
         type: 'POST',
-        data: {perg: $('.perg-list option:selected').text(), sala: $('input[name="sala"]:checked').val()},
+        data: {perg: $('.perg-list option:selected').text(), mat: $('#mat-input').val(), sala: $('input[name="sala"]:checked').val()},
       })
       .done(function(data){
         
@@ -182,7 +186,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val()},
+            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val(), estudo: estudo},
           })
           .done(function(result) {
 
@@ -207,6 +211,8 @@ $(document).ready(function(){
 
               r_a++;
               r_b++;
+
+              estudo = result.estudo;
 
               clearInterval(interval);
             }
@@ -301,6 +307,12 @@ $(document).ready(function(){
     //Se já tiverem sido efectuadas 3 questões às duas salas simultaneamente, o jogo acaba e o utilizador tem de escolher qual o computador e qual o humano
     if(a_perg == 3 && b_perg == 3)
     {
+      var element = document.getElementById('respostas');
+
+      element.style.opacity = "0.6";
+
+      $('#term-jogo').prop('disabled', true);
+
       fim_do_jogo(a_perg, b_perg, troca);
     }
 
@@ -346,6 +358,10 @@ $(document).ready(function(){
   //Ao clicar no botão "terminar jogo", vamos acabar com o jogo e o utilizador terá de fazer a sua escolha
   $('#term-jogo').click(function(){
 
+    var element = document.getElementById('respostas');
+
+    element.style.opacity = "0.6";
+
     $('#term-jogo').prop('disabled', true);
 
     fim_do_jogo(a_perg, b_perg, troca);
@@ -367,6 +383,8 @@ $(document).ready(function(){
       else 
       {
           $('#dd-input').hide();
+
+          $('#mat-input').val('');
       }
 
   }).change();

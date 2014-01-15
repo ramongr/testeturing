@@ -68,17 +68,10 @@
 
   function getRes($perg)
   {
-    for($i = 0; $i < strlen($perg); $i++)
-    {
-      if($perg[$i] == '(' || $perg[$i] == ')')
-      {
-        $perg[$i] = ' ';
-      }
-    }
+    $no_par = str_replace(array('(', ')'), ' ', $perg);
+    $no_spaces = preg_replace('/\s+/', '', $no_par);
 
-    $no_spaces = preg_replace('/\s+/', '', $perg);
-
-    /*$num = null;
+    $num = null;
     $op = null;
     $aux = null;
 
@@ -137,25 +130,23 @@
 
       $i++;
       $j++;
-    }*/
+    }
 
-    return $no_spaces;
-    //return $num['0'] . ", " . $num['1'] . ", ". $op['0'];
+    return $res;
   }
 
-  function getResponse($id_perg, $perg)
+  function getResponse($id_perg, $perg, $estudo)
   {
     $resp_1 = array('1' => "O meu nome é ", '2' => "Chamo-me ", '3' => "");
     $resp_2 = array('1' => "Tenho ", '2' => "");
     $resp_3 = array('1' => "Vivo em ", '2' => "Moro em ", '3' => "Em ", '4' => 'Eu vivo em ', '5' => "Eu moro em ", '6' => '');
     $resp_4 = array('1' => "Castanho", '2' => "Preto", '3' => "Loiro");
-    $resp_5 = array('1' => "Estou a estudar", '2' => "Estudo", '3' => "Estou a trabalhar", '4' => "Trabalho", '5' => "Estou desempregado", '6' => "Não trabalho nem estudo");
+    $resp_5 = array('1' => "Estou a estudar", '2' => "Estudo", '3' => "Estou a trabalhar", '4' => "Trabalho", '5' => "Não trabalho nem estudo");
     $resp_6 = array('1' => "", '2' => "Estou no 1º ano de ", '3' => "Estou no 2º ano de ", '4' => "Sou finalista em ");
     $resp_7 = array('1' => "Homem", '2' => "Mulher", '3' => "Sou homem", '4' => "Sou mulher");
-    $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ", '4' => "");
+    $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ");
 
     $resp_bot = null;
-    $estudo = -1;
  
     switch($id_perg)
     {
@@ -167,16 +158,18 @@
 
       case 4: $num = rand(1, 3); $resp_bot = $resp_4[$num]; break;
 
-      case 5: if($estudo == 1) { $num = rand(1, 2); } else { $num = rand(1, 6); }; $resp_bot = $resp_5[$num]; if($num == 1 || $num == 2) { $estudo = 1; } else { $estudo = 0; }; break;
+      case 5: if($estudo == 1) { $num = rand(1, 2); } else { $num = rand(1, 5); }; $resp_bot = $resp_5[$num]; if($num == 1 || $num == 2) { $estudo = 1; } else { $estudo = 0; }; break;
 
-      case 6: $num = rand(1, 4); $curso = getCurso(); if($estudo == 0) { $resp_bot = "Já te disse que não estudo..."; } else { $resp_bot = $resp_6[$num] . $curso; $estudo = 1; }; break;
+      case 6: if($estudo == 0) { $resp_bot = "Já tinha dito que não estudo"; } else { $num = rand(1, 4); $curso = getCurso(); $resp_bot = $resp_6[$num] . $curso; $estudo = 1; }; break;
 
       case 7: $num = rand(1, 4); $resp_bot = $resp_7[$num]; break;
 
-      case 8: $num = 1; if($num == 2) { $resp_bot = $resp_8[$num]; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] + $res; }; break;
+      case 8: $num = rand(1, 3); if($num == 2) { $resp_bot = $resp_8[$num]; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] + $res; }; break;
     }
 
-    return $res;
+    $arr = array('0' => $resp_bot, '1' => $estudo);
+
+    return $arr;
   }
   
 ?>

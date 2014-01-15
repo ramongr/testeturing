@@ -40,7 +40,7 @@ $(document).ready(function(){
     $('#resp-button').prop('disabled',true);
     $('#resp-text').prop('disabled', true);
 
-    $('table#copy-table').append("<tr><th class='text-center perg-header'>"+$('.perg').text()+"</th></tr>");
+    $('table#copy-table').append("<tr><th class='perg-header'>"+$('.perg').text()+"</th></tr>");
     $('table#copy-table').append("<tr><td class='my-resp'>"+$('#resp-text').val()+"</td></tr>");
 
     $('#copy-table').show();

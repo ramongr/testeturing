@@ -10,9 +10,18 @@
 
   $id_jogo = $arr['max(id_jogo)'];
 
-  $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
-  $db->bind(':jogo',$id_jogo);
-  $db->bind(':perg',$_POST['perg']);
+  if($_POST['perg'] == 'Matemática')
+  {
+    $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
+    $db->bind(':jogo',$id_jogo);
+    $db->bind(':perg',$_POST['mat']);
+  }
+  else
+  {
+    $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
+    $db->bind(':jogo',$id_jogo);
+    $db->bind(':perg',$_POST['perg']);
+  }
 
   switch($_POST['sala']){
     case '0':

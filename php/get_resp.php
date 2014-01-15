@@ -15,6 +15,9 @@
 
   $perg = $_POST['perg'];
 
+  //Controla uma reposta do bot, para dar alguma inteligência ao programa
+  $estudo = $_POST['estudo'];
+
   //Devolve o id do jogo atual
 
   $db->query("select max(id_jogo) from jogo");
@@ -40,9 +43,7 @@
 
     $arr = $db->single();
 
-    //$aux = "idj: " . $id_jogo . ", idp: " . $id_perg;
     $arr2 = array("my_resp" => $arr['resp']);
-    //$arr2 = array("my_resp" => $aux);
 
     echo json_encode($arr2);
   }
@@ -50,17 +51,34 @@
   {
     if($sala == 1)
     {
-      //Vamos obter o id da pergunta fixa
+      if($_POST['perg'])
+      {
+        //Neste caso a pergunta fixa é "Matemática"
 
-      $db->query("select id_fix_perg from fix_perg f, perguntas p where p.id_jogo = :id_j and p.id_perg = :id_p and p.perg = f.fix_perg");
-      $db->bind(':id_p',$id_perg);
-      $db->bind(':id_j',$id_jogo);
+        //Chamar a função para obter a resposta do bot
 
-      $arr = $db->single();
+        $arr = getResponse(8, $perg, $estudo);
 
-      //Chamar a função para obter a resposta do bot
+        $resp = $arr['0'];
+        $estudo = $arr['1'];
+      }
+      else
+      {
+        //Vamos obter o id da pergunta fixa
 
-      $resp = getResponse($arr['id_fix_perg'], $perg);
+        $db->query("select id_fix_perg from fix_perg f, perguntas p where p.id_jogo = :id_j and p.id_perg = :id_p and p.perg = f.fix_perg");
+        $db->bind(':id_p',$id_perg);
+        $db->bind(':id_j',$id_jogo);
+
+        $arr = $db->single();
+
+        //Chamar a função para obter a resposta do bot
+
+        $arr = getResponse($arr['id_fix_perg'], $perg, $estudo);
+
+        $resp = $arr['0'];
+        $estudo = $arr['1'];
+      }
 
       //Faz as devidas alterações á base de dados
 
@@ -74,7 +92,7 @@
       $db->bind(':perg',$id_perg);
       $db->execute();
 
-      $arr = array("resp_bot" => $resp);
+      $arr = array("resp_bot" => $resp, "estudo" => $estudo);
 
       echo json_encode($arr);
     }
@@ -94,17 +112,34 @@
 
         if($my_resp)
         {
-          //Vamos obter o id da pergunta fixa
+          if($_POST['perg'])
+          {
+            //Neste caso a pergunta fixa é "Matemática"
 
-          $db->query("select id_fix_perg from fix_perg f, perguntas p where p.id_jogo = :id_j and p.id_perg = :id_p and p.perg = f.fix_perg");
-          $db->bind(':id_p',$id_perg);
-          $db->bind(':id_j',$id_jogo);
+            //Chamar a função para obter a resposta do bot
 
-          $arr = $db->single();
+            $arr = getResponse(8, $perg, $estudo);
 
-          //Chamar a função para obter a resposta do bot
+            $resp = $arr['0'];
+            $estudo = $arr['1'];
+          }
+          else
+          {
+            //Vamos obter o id da pergunta fixa
 
-          $resp = getResponse($arr['id_fix_perg']);
+            $db->query("select id_fix_perg from fix_perg f, perguntas p where p.id_jogo = :id_j and p.id_perg = :id_p and p.perg = f.fix_perg");
+            $db->bind(':id_p',$id_perg);
+            $db->bind(':id_j',$id_jogo);
+
+            $arr = $db->single();
+
+            //Chamar a função para obter a resposta do bot
+
+            $arr = getResponse($arr['id_fix_perg'], $perg, $estudo);
+
+            $resp = $arr['0'];
+            $estudo = $arr['1'];
+          }
 
           //Faz as devidas alterações á base de dados
 
@@ -120,7 +155,7 @@
 
           //Vamos devolver as 2 respostas
 
-          $arr = array("my_resp" => $my_resp, "resp_bot" => $resp);
+          $arr = array("my_resp" => $my_resp, "resp_bot" => $resp, "estudo" => $estudo);
 
           echo json_encode($arr);
         }
