@@ -28,15 +28,16 @@ $(document).ready(function(){
   //Contador das respostas da saba B
   var r_b = 1;
 
-  //Controla uma reposta do bot, para dar alguma inteligência ao programa
+  //Controla umas repostas do bot, para dar alguma inteligência ao programa
   var estudo = -1;
+  var genero = -1;
 
   //Logo no inicio, usando um random, determinamos em que sala fica o humano e o bot. Se sair 0, humano -> sala A e bot -> sala B. Se sair 1, humano -> sala B e bot -> sala A
 
   if(flag == 0)
   {
-    //var num = Math.floor(Math.random() * 2);
-    var num = 0;
+    var num = Math.floor(Math.random() * 2);
+
     if(num == 1)
     {
       //Troca os id's das tabelas de respostas
@@ -88,7 +89,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val(), estudo: estudo},
+            data: {sala: $('input[name="sala"]:checked').val(), estudo: estudo, genero: genero},
           })
           .done(function(result) {
 
@@ -136,7 +137,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val(), estudo: estudo},
+            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val(), estudo: estudo, genero: genero},
           })
           .done(function(result) {
             
@@ -155,6 +156,7 @@ $(document).ready(function(){
               r_b++;
 
               estudo = result.estudo;
+              genero = result.genero;
 
               clearInterval(interval);
             }
@@ -186,7 +188,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val(), estudo: estudo},
+            data: {sala: $('input[name="sala"]:checked').val(), perg: $('#mat-input').val(), estudo: estudo, genero: genero},
           })
           .done(function(result) {
 
@@ -213,6 +215,7 @@ $(document).ready(function(){
               r_b++;
 
               estudo = result.estudo;
+              genero = result.genero;
 
               clearInterval(interval);
             }

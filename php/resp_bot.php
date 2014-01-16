@@ -69,8 +69,9 @@
   function getRes($perg)
   {
     $no_par = str_replace(array('(', ')'), ' ', $perg);
-    $no_spaces = preg_replace('/\s+/', '', $no_par);
-
+    $no_vir = str_replace(',', '.', $no_par);
+    $no_spaces = preg_replace('/\s+/', '', $no_vir);
+    
     $num = null;
     $op = null;
     $aux = null;
@@ -90,7 +91,7 @@
       }
       else
       {
-        while($i < strlen($no_spaces) && is_numeric($no_spaces[$i]))
+        while($i < strlen($no_spaces) && (is_numeric($no_spaces[$i]) || $no_spaces[$i] == '.'))
         {
           $aux = $aux . $no_spaces[$i];
 
@@ -135,7 +136,29 @@
     return $res;
   }
 
-  function getResponse($id_perg, $perg, $estudo)
+  function checkPerg($perg)
+  {
+    $no_par = str_replace(array('(', ')'), ' ', $perg);
+    $no_vir = str_replace(',', '.', $no_par);
+    $no_spaces = preg_replace('/\s+/', '', $no_vir);
+
+    $res = 0;
+    $flag = 0;
+
+    for($i = 0; $i < strlen($no_spaces) && $flag == 0; $i++)
+    {
+      if(is_numeric($no_spaces[$i]) == false && $no_spaces[$i] != '.' && $no_spaces[$i] != '+' && $no_spaces[$i] != '-' && $no_spaces[$i] != '*' && $no_spaces[$i] != '/')
+      {
+        $res = 1;
+
+        $flag = 1;
+      } 
+    }
+
+    return $res;
+  }
+
+  function getResponse($id_perg, $perg, $estudo, $genero)
   {
     $resp_1 = array('1' => "O meu nome é ", '2' => "Chamo-me ", '3' => "");
     $resp_2 = array('1' => "Tenho ", '2' => "");
@@ -160,14 +183,14 @@
 
       case 5: if($estudo == 1) { $num = rand(1, 2); } else { $num = rand(1, 5); }; $resp_bot = $resp_5[$num]; if($num == 1 || $num == 2) { $estudo = 1; } else { $estudo = 0; }; break;
 
-      case 6: if($estudo == 0) { $resp_bot = "Já tinha dito que não estudo"; } else { $num = rand(1, 4); $curso = getCurso(); $resp_bot = $resp_6[$num] . $curso; $estudo = 1; }; break;
+      case 6: if($estudo == 0) { $resp_bot = "Já disse que não estudo"; } else { $num = rand(1, 4); $curso = getCurso(); $resp_bot = $resp_6[$num] . $curso; $estudo = 1; }; break;
 
       case 7: $num = rand(1, 4); $resp_bot = $resp_7[$num]; break;
 
-      case 8: $num = rand(1, 3); if($num == 2) { $resp_bot = $resp_8[$num]; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] + $res; }; break;
+      case 8: $aux = checkPerg($perg); $num = rand(1, 3); if($aux == 1) { $resp_bot = $resp_8['2']; } else { if($num == 2) { $resp_bot = $resp_8[$num]; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] . $res; }}; break;
     }
 
-    $arr = array('0' => $resp_bot, '1' => $estudo);
+    $arr = array('0' => $resp_bot, '1' => $estudo, '2' => $genero);
 
     return $arr;
   }

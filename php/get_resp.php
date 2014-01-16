@@ -15,8 +15,9 @@
 
   $perg = $_POST['perg'];
 
-  //Controla uma reposta do bot, para dar alguma inteligência ao programa
+  //Controla umas repostas do bot, para dar alguma inteligência ao programa
   $estudo = $_POST['estudo'];
+  $genero = $_POST['genero'];
 
   //Devolve o id do jogo atual
 
@@ -57,10 +58,11 @@
 
         //Chamar a função para obter a resposta do bot
 
-        $arr = getResponse(8, $perg, $estudo);
+        $arr = getResponse(8, $perg, $estudo, $genero);
 
         $resp = $arr['0'];
         $estudo = $arr['1'];
+        $genero = $arr['2'];
       }
       else
       {
@@ -74,10 +76,11 @@
 
         //Chamar a função para obter a resposta do bot
 
-        $arr = getResponse($arr['id_fix_perg'], $perg, $estudo);
+        $arr = getResponse($arr['id_fix_perg'], $perg, $estudo, $genero);
 
         $resp = $arr['0'];
         $estudo = $arr['1'];
+        $genero = $arr['2'];
       }
 
       //Faz as devidas alterações á base de dados
@@ -92,7 +95,7 @@
       $db->bind(':perg',$id_perg);
       $db->execute();
 
-      $arr = array("resp_bot" => $resp, "estudo" => $estudo);
+      $arr = array("resp_bot" => $resp, "estudo" => $estudo, "genero" => $genero);
 
       echo json_encode($arr);
     }
@@ -118,10 +121,11 @@
 
             //Chamar a função para obter a resposta do bot
 
-            $arr = getResponse(8, $perg, $estudo);
+            $arr = getResponse(8, $perg, $estudo, $genero);
 
             $resp = $arr['0'];
             $estudo = $arr['1'];
+            $genero = $arr['2'];
           }
           else
           {
@@ -135,10 +139,11 @@
 
             //Chamar a função para obter a resposta do bot
 
-            $arr = getResponse($arr['id_fix_perg'], $perg, $estudo);
+            $arr = getResponse($arr['id_fix_perg'], $perg, $estudo, $genero);
 
             $resp = $arr['0'];
             $estudo = $arr['1'];
+            $genero = $arr['2'];
           }
 
           //Faz as devidas alterações á base de dados
@@ -155,7 +160,7 @@
 
           //Vamos devolver as 2 respostas
 
-          $arr = array("my_resp" => $my_resp, "resp_bot" => $resp, "estudo" => $estudo);
+          $arr = array("my_resp" => $my_resp, "resp_bot" => $resp, "estudo" => $estudo, "genero" => $genero);
 
           echo json_encode($arr);
         }
