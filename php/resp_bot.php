@@ -1,8 +1,15 @@
 <?php
   
-  function getName()
+  function getName($gen)
   {
-    $file = fopen("nomes.txt", "r") or exit("Unable to open file!");
+    if($gen == 0)
+    {
+      $file = fopen("nm_masc.txt", "r") or exit("Unable to open file!");
+    }
+    else
+    {
+      $file = fopen("nm_fem.txt", "r") or exit("Unable to open file!");
+    }
     
     $i = 0;
 
@@ -166,14 +173,14 @@
     $resp_4 = array('1' => "Castanho", '2' => "Preto", '3' => "Loiro");
     $resp_5 = array('1' => "Estou a estudar", '2' => "Estudo", '3' => "Estou a trabalhar", '4' => "Trabalho", '5' => "Não trabalho nem estudo");
     $resp_6 = array('1' => "", '2' => "Estou no 1º ano de ", '3' => "Estou no 2º ano de ", '4' => "Sou finalista em ");
-    $resp_7 = array('1' => "Homem", '2' => "Mulher", '3' => "Sou homem", '4' => "Sou mulher");
+    $resp_7 = array('1' => "Homem", '2' => "Sou homem", '3' => "Mulher", '4' => "Sou mulher");
     $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ");
 
     $resp_bot = null;
  
     switch($id_perg)
     {
-      case 1: $num = rand(1, 3); $nome =  getName(); $resp_bot = $resp_1[$num] . $nome; break;
+      case 1: $num = rand(1, 3); if($genero == -1) { $gen = rand(0, 1); $nome =  getName($gen); $genero = $gen; } else { if($genero == 0) { $nome = getName(0); } else { $nome = getName(1); }; }; $resp_bot = $resp_1[$num] . $nome; break;
 
       case 2: $num = rand (1, 2); $idade = rand(16, 60); $resp_bot = $resp_2[$num] . $idade . " anos"; break;
 
@@ -185,7 +192,7 @@
 
       case 6: if($estudo == 0) { $resp_bot = "Já disse que não estudo"; } else { $num = rand(1, 4); $curso = getCurso(); $resp_bot = $resp_6[$num] . $curso; $estudo = 1; }; break;
 
-      case 7: $num = rand(1, 4); $resp_bot = $resp_7[$num]; break;
+      case 7: if($genero == -1) { $num = rand(1, 4); if($num == 1 || $num == 2) { $genero = 0; } else { $genero = 1; }; } else { if($genero == 0) { $num = rand(1, 2); } else { $num = rand(3, 4); }; }; $resp_bot = $resp_7[$num]; break;
 
       case 8: $aux = checkPerg($perg); $num = rand(1, 3); if($aux == 1) { $resp_bot = $resp_8['2']; } else { if($num == 2) { $resp_bot = $resp_8[$num]; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] . $res; }}; break;
     }

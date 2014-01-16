@@ -16,5 +16,4 @@
   $db->bind(':win',NULL);
   $db->execute();
 
-  //echo $db->lastInsertId();
 ?>
