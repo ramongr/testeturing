@@ -36,7 +36,8 @@ $(document).ready(function(){
 
   if(flag == 0)
   {
-    var num = Math.floor(Math.random() * 2);
+    //var num = Math.floor(Math.random() * 2);
+    var num = 0;
 
     if(num == 1)
     {
@@ -89,7 +90,7 @@ $(document).ready(function(){
             url: './php/get_resp.php',
             type: 'POST',
             dataType:"json",
-            data: {sala: $('input[name="sala"]:checked').val(), estudo: estudo, genero: genero},
+            data: {perg: $('#mat-input').val(), sala: $('input[name="sala"]:checked').val(), estudo: estudo, genero: genero},
           })
           .done(function(result) {
 

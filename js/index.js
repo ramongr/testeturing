@@ -10,8 +10,13 @@ $(document).ready(function() {
     .done(function(result) {
      
     })
-    
+  })
+
+  $('#game').click(function(){
+
     $('.fst-step').hide(600)
     $('.snd-step').show(600)
+
   })
+  
 })

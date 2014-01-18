@@ -79,6 +79,10 @@
     $no_vir = str_replace(',', '.', $no_par);
     $no_spaces = preg_replace('/\s+/', '', $no_vir);
     
+    $chars = "0123456789.+-*/\n";
+    $pattern = "/[^".preg_quote($chars, "/")."]/";
+    $no_letters = preg_replace($pattern, "", $no_spaces);
+
     $num = null;
     $op = null;
     $aux = null;
@@ -88,19 +92,19 @@
 
     //Separar o input em 2 array's. Um com os números e outro com os operadores
 
-    for($i = 0; $i < strlen($no_spaces); $i++)
+    for($i = 0; $i < strlen($no_letters); $i++)
     {
-      if($no_spaces[$i] == '+' || $no_spaces[$i] == '-' || $no_spaces[$i] == '*' || $no_spaces[$i] == '/')
+      if($no_letters[$i] == '+' || $no_letters[$i] == '-' || $no_letters[$i] == '*' || $no_letters[$i] == '/')
       {
-        $op[$j] = $no_spaces[$i];
+        $op[$j] = $no_letters[$i];
 
         $j++;
       }
       else
       {
-        while($i < strlen($no_spaces) && (is_numeric($no_spaces[$i]) || $no_spaces[$i] == '.'))
+        while($i < strlen($no_letters) && (is_numeric($no_letters[$i]) || $no_letters[$i] == '.'))
         {
-          $aux = $aux . $no_spaces[$i];
+          $aux = $aux . $no_letters[$i];
 
           $i++;
         }
@@ -143,28 +147,6 @@
     return $res;
   }
 
-  function checkPerg($perg)
-  {
-    $no_par = str_replace(array('(', ')'), ' ', $perg);
-    $no_vir = str_replace(',', '.', $no_par);
-    $no_spaces = preg_replace('/\s+/', '', $no_vir);
-
-    $res = 0;
-    $flag = 0;
-
-    for($i = 0; $i < strlen($no_spaces) && $flag == 0; $i++)
-    {
-      if(is_numeric($no_spaces[$i]) == false && $no_spaces[$i] != '.' && $no_spaces[$i] != '+' && $no_spaces[$i] != '-' && $no_spaces[$i] != '*' && $no_spaces[$i] != '/')
-      {
-        $res = 1;
-
-        $flag = 1;
-      } 
-    }
-
-    return $res;
-  }
-
   function getResponse($id_perg, $perg, $estudo, $genero)
   {
     $resp_1 = array('1' => "O meu nome é ", '2' => "Chamo-me ", '3' => "");
@@ -194,7 +176,7 @@
 
       case 7: if($genero == -1) { $num = rand(1, 4); if($num == 1 || $num == 2) { $genero = 0; } else { $genero = 1; }; } else { if($genero == 0) { $num = rand(1, 2); } else { $num = rand(3, 4); }; }; $resp_bot = $resp_7[$num]; break;
 
-      case 8: $aux = checkPerg($perg); $num = rand(1, 3); if($aux == 1) { $resp_bot = $resp_8['2']; } else { if($num == 2) { $resp_bot = $resp_8[$num]; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] . $res; }}; break;
+      case 8: $num = rand(1, 3); if($num == 2) { $resp_bot = $resp_8['2']; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] . $res; };
     }
 
     $arr = array('0' => $resp_bot, '1' => $estudo, '2' => $genero);
