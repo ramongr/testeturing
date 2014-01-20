@@ -79,7 +79,7 @@
     $no_vir = str_replace(',', '.', $no_par);
     $no_spaces = preg_replace('/\s+/', '', $no_vir);
     
-    $chars = "0123456789.+-*/\n";
+    $chars = "0123456789.+-*/=\n";
     $pattern = "/[^".preg_quote($chars, "/")."]/";
     $no_letters = preg_replace($pattern, "", $no_spaces);
 
@@ -94,7 +94,7 @@
 
     for($i = 0; $i < strlen($no_letters); $i++)
     {
-      if($no_letters[$i] == '+' || $no_letters[$i] == '-' || $no_letters[$i] == '*' || $no_letters[$i] == '/')
+      if($no_letters[$i] == '+' || $no_letters[$i] == '-' || $no_letters[$i] == '*' || $no_letters[$i] == '/' || $no_letters[$i] == '=')
       {
         $op[$j] = $no_letters[$i];
 
@@ -138,6 +138,8 @@
         case '*': $res = $res * $num[$j]; break;  
 
         case '/': $res = $res / $num[$j]; break;
+
+        case '=': if($res == $num[$j]) { $res = 'Verdadeiro'; } else { $res = 'Falso'; }; break;
       }
 
       $i++;

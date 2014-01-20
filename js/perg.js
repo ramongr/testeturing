@@ -73,6 +73,7 @@ $(document).ready(function(){
     {
       $('#perg-button').prop('disabled', true);
       $('.perg-list').prop('disabled', true);
+      $('#term-jogo').prop('disabled', true);
 
       //Envia os dados assícronamente para a base de dados
       $.ajax({
@@ -111,6 +112,7 @@ $(document).ready(function(){
 
               $('#perg-button').prop('disabled', false);
               $('.perg-list').prop('disabled', false);
+              $('#term-jogo').prop('disabled', false);
 
               a_perg ++;
 
@@ -127,8 +129,9 @@ $(document).ready(function(){
 
     if($('.perg-list').val()>-1 && $("input[name='sala']:checked").val() == 1)
     {
-      $('#perg-button').prop('disabled', true)
-      $('.perg-list').prop('disabled', true)
+      $('#perg-button').prop('disabled', true);
+      $('.perg-list').prop('disabled', true);
+      $('#term-jogo').prop('disabled', true);
 
       //Envia os dados assícronamente para a base de dados
       $.ajax({
@@ -167,6 +170,7 @@ $(document).ready(function(){
 
               $('#perg-button').prop('disabled', false);
               $('.perg-list').prop('disabled', false);
+              $('#term-jogo').prop('disabled', false);
 
               b_perg ++;
 
@@ -186,8 +190,9 @@ $(document).ready(function(){
 
     if($('.perg-list').val()>-1 && $("input[name='sala']:checked").val() == 2)
     {
-      $('#perg-button').prop('disabled', true)
-      $('.perg-list').prop('disabled', true)
+      $('#perg-button').prop('disabled', true);
+      $('.perg-list').prop('disabled', true);
+      $('#term-jogo').prop('disabled', true);
 
       //Envia os dados assícronamente para a base de dados
       $.ajax({
@@ -232,6 +237,7 @@ $(document).ready(function(){
 
               $('#perg-button').prop('disabled', false);
               $('.perg-list').prop('disabled', false);
+              $('#term-jogo').prop('disabled', false);
 
               a_perg ++;
               b_perg ++;

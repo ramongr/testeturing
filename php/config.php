@@ -9,15 +9,12 @@
     private $error;
 
     public function __construct(){
-      if($_SERVER['SERVER_NAME'] == 'localhost'){
-        $this->host = "localhost";
-        $this->user = "root";
-        $this->pass = "";
-        $this->dbname = "turing";
-      }
-      else{
-        echo "not localhost";
-      }
+      
+      $this->host = "localhost";
+      $this->user = "root";
+      $this->pass = "";
+      $this->dbname = "turing";
+      
       // Set DSN
       $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
       // Set options
