@@ -1,14 +1,31 @@
 <?php
+
   //Este ficheiro regista as questões inseridas
   include 'config.php';
 
   $db = new Database;
 
-  $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
-  $db->bind(':jogo',$_COOKIE['turing']);
-  $db->bind(':perg',$_POST['perg']);
+  $db->query("select max(id_jogo) from jogo");
+  
+  $arr = $db->single();
 
-  switch($_POST['sala']){
+  $id_jogo = $arr['max(id_jogo)'];
+
+  if($_POST['perg'] == 'Aritmética')
+  {
+    $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
+    $db->bind(':jogo',$id_jogo);
+    $db->bind(':perg',$_POST['mat']);
+  }
+  else
+  {
+    $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
+    $db->bind(':jogo',$id_jogo);
+    $db->bind(':perg',$_POST['perg']);
+  }
+
+  switch($_POST['sala'])
+  {
     case '0':
       $db->bind(':sa',1);
       $db->bind(':sb',0);
@@ -26,7 +43,4 @@
 
   $db->execute();
 
-  if($_POST['sala'] == 0 || $_POST['sala']==2){
-    setcookie('pergunta',$db->lastInsertId(),time()+3600*24,'/');
-  }
 ?>

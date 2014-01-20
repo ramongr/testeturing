@@ -1,69 +1,61 @@
 $(document).ready(function(){
-  var perg = $.cookie('pergunta')
-  $('#copy-table').hide()
-  $('#resp-button').prop('disabled',true)
-  $('#resp-text').prop('disabled', true)
+  
+  $('#copy-table').hide();
+
+  $('#resp-button').prop('disabled',true);
+  $('#resp-text').prop('disabled', true);
+
+  var n_resp = 1;
 
   //Verifica a cada 5 segundos por uma pergunta nova
   window.setInterval(function(){
 
-    if($.cookie('pergunta')==0){
-      $('.perg').text('Por favor aguarde')
-      $('#resp-button').prop('disabled',true)
-      $('#resp-text').prop('disabled',true)
-    }
+    $.ajax({
+      url: './php/get_perg.php',
+      type: 'POST'
+    })
+    .done(function(result) {
 
-    if($.cookie('pergunta')>0 && $.cookie('pergunta')!=perg){
-
-      perg = $.cookie('pergunta')
-
-      $.ajax({
-        url: './php/src_resp.php',
-        type: 'POST',
-        data: {perg: perg}
-      })
-      .done(function(result) {
-        console.log(result)
-        switch(result){
-          case 0:
-            $('.perg').text('Por favor aguarde')
-            break
-          case -1:
-            $('.perg').text('Fim do jogo!')
-            break
-          default :
-            $('.perg').text(result)
-            $('#resp-button').prop('disabled',false)
-            $('#resp-text').prop('disabled',false)
-        }
-      })
-    }
-
+      if(result)
+      {
+          switch(result)
+          {
+            case '0':
+              $('.perg').text('Por favor aguarde');
+              break
+            case '1':
+              $('.perg').text('Fim do jogo!');
+              var Parent = document.getElementById('copy-table');
+              while(Parent.hasChildNodes())
+              {
+                 Parent.removeChild(Parent.firstChild);
+              }
+              n_resp = 1;
+              break
+            default :
+              $('.perg').text(result);
+              $('#resp-button').prop('disabled',false);
+              $('#resp-text').prop('disabled',false);
+          }
+      }
+      
+    })
   }, 5000)
 
-  $('#rest-text').keyup(function(event) {
-    if(event.which == 13){
-      $('#resp-button').trigger('click')
-    }
-  })
 
   $('#resp-button').click(function(){
-    /*Lista de coisas a fazer: TO DO
-      1 - Fazer disable ao texto para não deixar responder em branco -> DONE
-      2 - Enviar a pergunta por AJAX para a BD
-      3 - Manter o event listener a ouvir por uma pergunta
-      4 - Esperar nova pergunta
-      5 - Registar resposta na tabela
-    */
-    $('#resp-button').prop('disabled',true)
-    $('#resp-text').prop('disabled', true)
-    
-    $('#copy-table').clone(true).appendTo('.col-md-8')
 
-    $('.perg-header').text($('.perg').text())
-    $('.my-resp').text($('#resp-text').val())
+    $('#resp-button').prop('disabled',true);
+    $('#resp-text').prop('disabled', true);
+
+    $('table#copy-table').append("<tr><th class='perg-header'>" + n_resp + ". " + $('.perg').text() + "</th></tr>");
+    $('table#copy-table').append("<tr><td class='my-resp'>" + $('#resp-text').val() + "</td></tr>");
+
+    n_resp++;
+
     $('#copy-table').show();
-    $('.perg').text('À espera de outra pergunta')
+
+    $('.perg').text('À espera de outra pergunta');
 
     $.ajax({
       url: './php/resp.php',
@@ -71,7 +63,9 @@ $(document).ready(function(){
       data: {resp: $('#resp-text').val()}
     })
     .done(function(result) {
-      console.log(result)
+
+      $("#resp-text").val('');
+      
     })
     
   })

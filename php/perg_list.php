@@ -9,7 +9,8 @@
 
   $arr = array();
 
-  foreach ($perg_list as $perg) {
+  foreach ($perg_list as $perg) 
+  {
     echo "<option value=".$perg['id_fix_perg'].">".$perg['fix_perg']."</option>";
   }
 ?>

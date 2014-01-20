@@ -1,0 +1,47 @@
+﻿Lisboa
+Porto
+Braga
+Coimbra
+Amadora
+Vila Nova de Gaia
+Setúbal
+Beja
+Évora
+Faro
+Portimão
+Vila Real
+Bragança
+Viana do Castelo
+Alcobaça
+Sintra
+Funchal
+Portalegre
+Aveiro
+Almada
+Barreiro
+Cartaxo
+Elvas
+Chaves
+Fátima
+Espinhos
+Guarda
+Gouveia
+Fundão
+Leiria
+Maia
+Loures
+Moura
+Mirandela
+Penafiel
+Pinhel
+Praia da Vitória
+Queluz
+Ribeira Grande
+Santana
+Santa Cruz
+Seia
+São Pedro do Sul
+Tomar
+Tavira
+Trancoso
+Trofa

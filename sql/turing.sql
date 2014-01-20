@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `fix_perg` (
   `id_fix_perg` int(11) NOT NULL AUTO_INCREMENT,
   `fix_perg` varchar(256) NOT NULL,
   PRIMARY KEY (`id_fix_perg`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `jogo` (
   `n_resp` int(11) DEFAULT NULL,
   `ganhou` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_jogo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `perguntas` (
   `sala_a` int(11) NOT NULL,
   `sala_b` int(11) NOT NULL,
   PRIMARY KEY (`id_perg`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `respostas` (
   `resp` varchar(1024) DEFAULT NULL,
   `resp_bot` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id_resp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

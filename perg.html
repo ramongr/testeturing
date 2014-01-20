@@ -10,44 +10,64 @@
     <script src="./js/perg.js"></script>
   </head>
   <body>
-    <h1 class="text-center">Coloque a sua pergunta</h1>
-    <br><br><br><br>
+    <h1 id="titulo" class="text-center">Coloque a sua pergunta</h1>
     <div class="row">
       <div class="col-md-12">
-        <div class="row">
+        <div id="perguntas" class="row">
+          <br><br><br><br>
           <div class="col-md-4"></div>
           <div class="col-md-4">
-            <select class="form-control perg-list">
+            <select id="perguntas-list" class="form-control perg-list">
               <option value="-1">Selecione uma pergunta</option>
             </select>
+            <div id="dd-input">
+              <br>
+              <input class="form-control" type="text" id="mat-input" placeholder="Introduza uma conta simples"/>
+            </div>
             <br>
             <div class="from-group">
               <label for="salaA">Sala A</label>
-              <input type="radio" name="sala" value="0" placeholder="Sala A">
+              <input type="radio" id="0" name="sala" value="0" placeholder="Sala A">
               <label for="salaB">Sala B</label>
-              <input type="radio" name="sala" value="1" placeholder="Sala B">
+              <input type="radio" id="1" name="sala" value="1" placeholder="Sala B">
               <label for="salaAB">Duas Salas</label>
-              <input type="radio" name="sala" value="2" placeholder="Sala A e B">
+              <input type="radio" id="2" name="sala" value="2" placeholder="Sala A e B">
             </div>
             <button type="button" id="perg-button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-ok"></span> Perguntar</button>
           </div>
           <div class="col-md-4"></div>
+          <br><br>
         </div>
-        <br><br><br>
+        <div id="termina-jogo" class="row">
+          <div class="col-md-2"></div>
+          <div id="fim-jogo" class="col-md-8 text-center">
+            <h1 class="text-center">Fim do Jogo!</h1>
+            <br><br>
+            <h3 class="text-center">Quem é o Humano?</h3>
+            <br>
+            <button style="margin-right:40px" type="button" id="salaA" class="btn btn-primary">Sala A</button>
+            <button type="button" id="salaB" class="btn btn-primary">Sala B</button>
+            <br><br>
+            <h1 id="resultado" class="text-center"></h1>
+            <br>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
         <div class="row">
           <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <h1 class="text-center">Respostas</h1>
+          <div id="respostas" class="col-md-8 text-center">
+            <h1 id = "titulo-respostas" class="text-center">Respostas</h1>
             <br><br>
-            <!--Template para a tabela de respostas do Imitation Game-->
-            <!--Template para a tabela de respostas do Imitation Game-->
-            <table id="copy-table" class="table table-condensed table-hover">
+            <button type="button" id="term-jogo" class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span> Terminar</button>
+            <br><br>
+            <table id="my-resp-table" class="table table-condensed table-hover text-left">
               <tr>
-                <th class="text-center perg-header"></th>
+                <th class="text-center perg-header">Sala A</th>
               </tr>
+            </table>
+            <table id="resp-bot-table" class="table table-condensed table-hover text-left">
               <tr>
-                <td class="my-resp"></td>
-                <td class="bot-resp"></td>
+                <th class="text-center perg-header">Sala B</th>
               </tr>
             </table>
           </div>
