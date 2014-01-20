@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  
   $('.snd-step').hide()
 
   $('#new-game').click(function(){

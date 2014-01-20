@@ -96,7 +96,15 @@ $(document).ready(function(){
 
             if(result.my_resp)
             {
-              $('table#my-resp-table').append("<tr><th class='perg-header'>" + r_a + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              if($('#mat-input').val())
+              {
+                $('table#my-resp-table').append("<tr><th class='perg-header'>" + r_a + ". " + $('#mat-input').val() + "</th></tr>");
+              }
+              else
+              {
+                $('table#my-resp-table').append("<tr><th class='perg-header'>" + r_a + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              }
+              
               $('table#my-resp-table').append("<tr><td class='my-resp'>" + result.my_resp + "</td></tr>");
               
               $('#my-resp-table').show();
@@ -144,7 +152,15 @@ $(document).ready(function(){
             
             if(result.resp_bot)
             {
-              $('table#resp-bot-table').append("<tr><th class='perg-header'>" + r_b + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              if($('#mat-input').val())
+              {
+                $('table#resp-bot-table').append("<tr><th class='perg-header'>" + r_b + ". " + $('#mat-input').val() + "</th></tr>");
+              }
+              else
+              {
+                $('table#resp-bot-table').append("<tr><th class='perg-header'>" + r_b + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              }
+              
               $('table#resp-bot-table').append("<tr><td class='bot-resp'>" + result.resp_bot + "</td></tr>");
               
               $('#resp-bot-table').show();
@@ -195,13 +211,21 @@ $(document).ready(function(){
 
             if(result.resp_bot && result.my_resp)
             {
-              $('table#my-resp-table').append("<tr><th class='perg-header'>" + r_a + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              if($('#mat-input').val())
+              {
+                $('table#my-resp-table').append("<tr><th class='perg-header'>" + r_a + ". " + $('#mat-input').val() + "</th></tr>");
+                $('table#resp-bot-table').append("<tr><th class='perg-header'>" + r_b + ". " + $('#mat-input').val() + "</th></tr>");
+              }
+              else
+              {
+                $('table#my-resp-table').append("<tr><th class='perg-header'>" + r_a + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+                $('table#resp-bot-table').append("<tr><th class='perg-header'>" + r_b + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              }
+              
               $('table#my-resp-table').append("<tr><td class='my-resp'>" + result.my_resp + "</td></tr>");
               
               $('#my-resp-table').show();
-
-
-              $('table#resp-bot-table').append("<tr><th class='perg-header'>" + r_b + ". " + $('.perg-list option:selected').text() + "</th></tr>");
+              
               $('table#resp-bot-table').append("<tr><td class='bot-resp'>" + result.resp_bot + "</td></tr>");
             
               $('#resp-bot-table').show();

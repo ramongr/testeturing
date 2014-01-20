@@ -1,4 +1,5 @@
 <?php
+
   //Este ficheiro regista as questões inseridas
   include 'config.php';
 
@@ -10,7 +11,7 @@
 
   $id_jogo = $arr['max(id_jogo)'];
 
-  if($_POST['perg'] == 'Matemática')
+  if($_POST['perg'] == 'Aritmética')
   {
     $db->query("insert into perguntas (id_jogo,perg,sala_a,sala_b) values (:jogo,:perg,:sa,:sb)");
     $db->bind(':jogo',$id_jogo);
@@ -23,7 +24,8 @@
     $db->bind(':perg',$_POST['perg']);
   }
 
-  switch($_POST['sala']){
+  switch($_POST['sala'])
+  {
     case '0':
       $db->bind(':sa',1);
       $db->bind(':sb',0);

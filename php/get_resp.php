@@ -54,7 +54,7 @@
     {
       if($_POST['perg'])
       {
-        //Neste caso a pergunta fixa é "Matemática"
+        //Neste caso a pergunta fixa é "Aritmética"
 
         //Chamar a função para obter a resposta do bot
 

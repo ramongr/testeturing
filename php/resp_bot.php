@@ -151,7 +151,7 @@
   {
     $resp_1 = array('1' => "O meu nome é ", '2' => "Chamo-me ", '3' => "");
     $resp_2 = array('1' => "Tenho ", '2' => "");
-    $resp_3 = array('1' => "Vivo em ", '2' => "Moro em ", '3' => "Em ", '4' => 'Eu vivo em ', '5' => "Eu moro em ", '6' => '');
+    $resp_3 = array('1' => "Vivo em ", '2' => "Moro em ", '3' => "Em ", '4' => 'Eu vivo em ', '5' => "Eu moro em ", '6' => "");
     $resp_4 = array('1' => "Castanho", '2' => "Preto", '3' => "Loiro");
     $resp_5 = array('1' => "Estou a estudar", '2' => "Estudo", '3' => "Estou a trabalhar", '4' => "Trabalho", '5' => "Não trabalho nem estudo");
     $resp_6 = array('1' => "", '2' => "Estou no 1º ano de ", '3' => "Estou no 2º ano de ", '4' => "Sou finalista em ");
