@@ -125,6 +125,7 @@
     $j = 0;
 
     $res = $num[$j];
+    $res2 = null;
     $j++;
 
     while($i < count($op))
@@ -139,11 +140,23 @@
 
         case '/': $res = $res / $num[$j]; break;
 
-        case '=': if($res == $num[$j]) { $res = 'Verdadeiro'; } else { $res = 'Falso'; }; break;
+        case '=': $res2 = $res; $res = $num[$j]; break;
       }
 
       $i++;
       $j++;
+    }
+
+    if($res2 != null)
+    {
+      if($res == $res2)
+      {
+        $res = 'Verdadeiro';
+      }
+      else
+      {
+        $res = 'Falso';
+      }
     }
 
     return $res;
@@ -158,7 +171,7 @@
     $resp_5 = array('1' => "Estou a estudar", '2' => "Estudo", '3' => "Estou a trabalhar", '4' => "Trabalho", '5' => "Não trabalho nem estudo");
     $resp_6 = array('1' => "", '2' => "Estou no 1º ano de ", '3' => "Estou no 2º ano de ", '4' => "Sou finalista em ");
     $resp_7 = array('1' => "Homem", '2' => "Sou homem", '3' => "Mulher", '4' => "Sou mulher");
-    $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ");
+    $resp_8 = array('1' => "", '2' => "Isso é muito complicado para mim", '3' => "Dá ", '4' => "");
 
     $resp_bot = null;
  
@@ -178,7 +191,7 @@
 
       case 7: if($genero == -1) { $num = rand(1, 4); if($num == 1 || $num == 2) { $genero = 0; } else { $genero = 1; }; } else { if($genero == 0) { $num = rand(1, 2); } else { $num = rand(3, 4); }; }; $resp_bot = $resp_7[$num]; break;
 
-      case 8: $num = rand(1, 3); if($num == 2) { $resp_bot = $resp_8['2']; } else { $res = getRes($perg); $resp_bot = $resp_8[$num] . $res; };
+      case 8: $num = rand(1, 4); if($num == 2) { $resp_bot = $resp_8['2']; } else { $res = getRes($perg); if($res) { $resp_bot = $resp_8[$num] . $res; } else { $resp_bot = $resp_8['2']; }; };
     }
 
     $arr = array('0' => $resp_bot, '1' => $estudo, '2' => $genero);
