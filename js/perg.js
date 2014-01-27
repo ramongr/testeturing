@@ -356,13 +356,16 @@ $(document).ready(function(){
       if(troca == 0)
       {
         $('#0').prop('disabled', true);
+        $('#0').prop('checked', false);
       }
       else
       {
         $('#1').prop('disabled', true);
+        $('#1').prop('checked', false);
       }
 
       $('#2').prop('disabled', true);
+      $('#2').prop('checked', false);
     }
 
     //Se já tiverem sido efectuadas 3 questões à sala B, utilizador agora só pode fazer perguntas à sala A
@@ -371,13 +374,16 @@ $(document).ready(function(){
       if(troca == 0)
       {
         $('#1').prop('disabled', true);
+        $('#1').prop('checked', false);
       }
       else
       {
         $('#0').prop('disabled', true);
+        $('#0').prop('checked', false);
       }
       
       $('#2').prop('disabled', true);
+      $('#2').prop('checked', false);
     }
 
     //Depois de haver, no mínimo, uma pergunta para cada sala, vamos tornar o botão "terminar jogo" visível
